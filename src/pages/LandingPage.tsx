@@ -9,7 +9,7 @@ import Footer from '../components/Footer';
 const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
+      {/* <Navbar /> */}
       <Hero />
       <About />
       <Collection />

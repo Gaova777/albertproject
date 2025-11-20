@@ -7,7 +7,6 @@ import AdminPanel from './pages/AdminPanel';
 function App() {
   return (
     <Router>
-      <Navbar />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/admin" element={<AdminPanel />} />
