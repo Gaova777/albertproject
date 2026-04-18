@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import dnaLogo from "../assets/logo-dna.svg";
+import brandLogo from "../assets/icon.png";
 import { buildWhatsappLink } from "../utils/whatsapp";
 
 const navItems = [
@@ -50,10 +50,10 @@ const Navbar: React.FC = () => {
           className={`group flex items-center gap-3 transition-opacity hover:opacity-80 ${logoTextColor}`}
         >
           <img
-            src={dnaLogo}
+            src={brandLogo}
             alt="UrbanSwag"
-            className="h-7 w-auto md:h-8"
-            style={{ filter: isScrolled ? "none" : "drop-shadow(0 0 6px rgba(0,0,0,0.5))" }}
+            className="h-9 w-auto md:h-10"
+            style={{ filter: isScrolled ? "none" : "drop-shadow(0 2px 8px rgba(0,0,0,0.6))" }}
           />
           <span className="text-lg font-semibold tracking-[0.2em] md:text-xl">
             URBANSWAG

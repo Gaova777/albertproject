@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 60" fill="none" stroke-linecap="round">
-  <path d="M8 4 C 32 12, 32 22, 8 30 C 32 38, 32 48, 8 56" stroke="#2563EB" stroke-width="3.5"/>
-  <path d="M32 4 C 8 12, 8 22, 32 30 C 8 38, 8 48, 32 56" stroke="#DC2626" stroke-width="3.5"/>
-  <g stroke="currentColor" stroke-width="1.6">
-    <line x1="14" y1="26" x2="26" y2="26"/>
-    <line x1="14" y1="30" x2="26" y2="30"/>
-    <line x1="14" y1="34" x2="26" y2="34"/>
-  </g>
-</svg>

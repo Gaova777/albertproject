@@ -3,9 +3,9 @@ import { ArrowRight } from "lucide-react";
 import { buildWhatsappLink } from "../utils/whatsapp";
 
 const heroSlides = [
-  "https://images.pexels.com/photos/6311392/pexels-photo-6311392.jpeg?auto=compress&cs=tinysrgb&w=1920",
-  "https://images.pexels.com/photos/1884581/pexels-photo-1884581.jpeg?auto=compress&cs=tinysrgb&w=1920",
-  "https://images.pexels.com/photos/8217498/pexels-photo-8217498.jpeg?auto=compress&cs=tinysrgb&w=1920",
+  "https://images.pexels.com/photos/6311394/pexels-photo-6311394.jpeg?auto=compress&cs=tinysrgb&w=1920",
+  "https://images.pexels.com/photos/6311481/pexels-photo-6311481.jpeg?auto=compress&cs=tinysrgb&w=1920",
+  "https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=1920",
 ];
 
 const Hero: React.FC = () => {

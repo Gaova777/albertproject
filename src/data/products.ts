@@ -17,7 +17,7 @@ export const products: Product[] = [
     material: "Algodón premium 320g",
     image: "/images/buzo-1.jpg",
     fallback:
-      "https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=900",
+      "https://images.pexels.com/photos/6311392/pexels-photo-6311392.jpeg?auto=compress&cs=tinysrgb&w=900",
   },
   {
     id: 2,
@@ -27,7 +27,7 @@ export const products: Product[] = [
     material: "Fleece perchado 340g",
     image: "/images/buzo-2.jpg",
     fallback:
-      "https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=900",
+      "https://images.pexels.com/photos/6311481/pexels-photo-6311481.jpeg?auto=compress&cs=tinysrgb&w=900",
   },
   {
     id: 3,
@@ -37,7 +37,7 @@ export const products: Product[] = [
     material: "Heavyweight cotton 380g",
     image: "/images/buzo-3.jpg",
     fallback:
-      "https://images.pexels.com/photos/1191710/pexels-photo-1191710.jpeg?auto=compress&cs=tinysrgb&w=900",
+      "https://images.pexels.com/photos/6311394/pexels-photo-6311394.jpeg?auto=compress&cs=tinysrgb&w=900",
   },
   {
     id: 4,
@@ -47,7 +47,7 @@ export const products: Product[] = [
     material: "Algodón orgánico 300g",
     image: "/images/buzo-4.jpg",
     fallback:
-      "https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=900",
+      "https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=900",
   },
   {
     id: 5,
@@ -57,7 +57,7 @@ export const products: Product[] = [
     material: "French terry 280g",
     image: "/images/buzo-5.jpg",
     fallback:
-      "https://images.pexels.com/photos/991509/pexels-photo-991509.jpeg?auto=compress&cs=tinysrgb&w=900",
+      "https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=900",
   },
   {
     id: 6,
