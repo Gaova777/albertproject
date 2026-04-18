@@ -1,54 +1,66 @@
-import React from 'react';
+import React from "react";
+import buzosImg from "../assets/buzos.jpg";
 
 const About: React.FC = () => {
   return (
-    <section id="about" className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Image */}
-          <div className="relative">
-            <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
-              <img
-                src="https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=800"
-                alt="Urban sweatshirt style"
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-              />
-            </div>
-            <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-blue-500 rounded-full blur-xl opacity-20"></div>
+    <section id="about" className="bg-stone-50 py-24 md:py-32">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 lg:grid-cols-12 lg:gap-24">
+        <div className="lg:col-span-5">
+          <div className="aspect-[4/5] overflow-hidden bg-stone-200">
+            <img
+              src={buzosImg}
+              alt="UrbanSwag — Hecho en Colombia"
+              className="h-full w-full object-cover"
+            />
           </div>
-          
-          {/* Content */}
-          <div className="space-y-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-              Hechos para la <span className="text-blue-500">Calle</span>
-            </h2>
-            
-            <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
-              <p>
-                En UrbanSwag creemos que la ropa debe ser una extensión de tu personalidad. 
-                Cada buzo está diseñado con materiales premium que garantizan comodidad y durabilidad, 
-                sin comprometer el estilo.
-              </p>
-              
-              <p>
-                Nuestra filosofía es simple: crear piezas auténticas que se adapten al ritmo 
-                de la vida urbana. Desde el primer boceto hasta el producto final, cada detalle 
-                está pensado para quienes viven y respiran la cultura de la calle.
-              </p>
+        </div>
+
+        <div className="flex flex-col justify-center lg:col-span-7">
+          <p className="mb-6 text-[11px] font-medium uppercase tracking-[0.35em] text-stone-500">
+            Nuestra Historia
+          </p>
+          <h2 className="mb-10 text-4xl font-light leading-tight tracking-tight text-stone-950 md:text-6xl">
+            Hechos para la
+            <br />
+            <span className="italic font-serif">calle.</span>
+          </h2>
+
+          <div className="space-y-5 text-base leading-relaxed text-stone-600 md:text-lg">
+            <p>
+              En UrbanSwag diseñamos buzos que duran. Cada pieza parte de una
+              idea simple: comodidad, calidad y un corte que te acompañe en
+              cualquier contexto urbano.
+            </p>
+            <p>
+              Trabajamos con algodón premium y fleece perchado, cosemos en
+              talleres locales, y producimos en tiradas cortas para mantener el
+              detalle y la identidad de cada prenda.
+            </p>
+          </div>
+
+          <div className="mt-14 grid grid-cols-3 gap-8 border-t border-stone-200 pt-10">
+            <div>
+              <div className="text-3xl font-light text-stone-950 md:text-4xl">
+                100%
+              </div>
+              <div className="mt-2 text-[10px] uppercase tracking-[0.25em] text-stone-500">
+                Algodón Premium
+              </div>
             </div>
-            
-            <div className="flex items-center gap-8 pt-4">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900">100%</div>
-                <div className="text-sm text-gray-500 uppercase tracking-wide">Algodón Premium</div>
+            <div>
+              <div className="text-3xl font-light text-stone-950 md:text-4xl">
+                06
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900">24/7</div>
-                <div className="text-sm text-gray-500 uppercase tracking-wide">Comodidad</div>
+              <div className="mt-2 text-[10px] uppercase tracking-[0.25em] text-stone-500">
+                Piezas en Drop
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900">∞</div>
-                <div className="text-sm text-gray-500 uppercase tracking-wide">Estilo</div>
+            </div>
+            <div>
+              <div className="text-3xl font-light text-stone-950 md:text-4xl">
+                CO
+              </div>
+              <div className="mt-2 text-[10px] uppercase tracking-[0.25em] text-stone-500">
+                Hecho en Colombia
               </div>
             </div>
           </div>

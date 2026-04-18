@@ -1,73 +1,74 @@
-import React from 'react';
-import { Instagram, Facebook } from 'lucide-react';
+import React from "react";
+import { Instagram } from "lucide-react";
+import { buildWhatsappLink } from "../utils/whatsapp";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-900 text-white py-16">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-3 gap-12 mb-12">
-          {/* Brand */}
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold">UrbanSwag</h3>
-            <p className="text-gray-400 leading-relaxed">
-              Redefiniendo el streetwear con diseños únicos y calidad premium para la nueva generación urbana.
+    <footer className="bg-stone-950 text-stone-300">
+      <div className="mx-auto max-w-7xl px-6 py-20">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
+          <div className="md:col-span-5">
+            <h3 className="text-2xl font-semibold tracking-[0.2em] text-white">
+              URBANSWAG
+            </h3>
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-stone-400">
+              Streetwear honesto. Piezas en edición limitada, hechas en
+              Colombia.
             </p>
           </div>
-          
-          {/* Quick Links */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold">Enlaces Rápidos</h4>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-blue-400 transition-colors duration-300">Colección</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-blue-400 transition-colors duration-300">Sobre Nosotros</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-blue-400 transition-colors duration-300">Contacto</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-blue-400 transition-colors duration-300">Política de Devoluciones</a></li>
+
+          <div className="md:col-span-3">
+            <h4 className="text-[10px] font-medium uppercase tracking-[0.3em] text-stone-500">
+              Navegá
+            </h4>
+            <ul className="mt-5 space-y-3 text-sm">
+              <li>
+                <a href="#collection" className="hover:text-white">
+                  Colección
+                </a>
+              </li>
+              <li>
+                <a href="#about" className="hover:text-white">
+                  Historia
+                </a>
+              </li>
+              <li>
+                <a href="#location" className="hover:text-white">
+                  Ubicación
+                </a>
+              </li>
             </ul>
           </div>
-          
-          {/* Social Media */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold">Síguenos</h4>
-            <div className="flex gap-4">
+
+          <div className="md:col-span-4">
+            <h4 className="text-[10px] font-medium uppercase tracking-[0.3em] text-stone-500">
+              Contacto
+            </h4>
+            <div className="mt-5 space-y-3 text-sm">
               <a
-                href="#"
-                className="p-3 bg-gray-800 hover:bg-blue-500 rounded-lg transition-colors duration-300 group"
+                href={buildWhatsappLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block hover:text-white"
               >
-                <Instagram className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
+                WhatsApp · +57 313 731 4694
               </a>
               <a
-                href="#"
-                className="p-3 bg-gray-800 hover:bg-blue-500 rounded-lg transition-colors duration-300 group"
+                href="https://instagram.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 hover:text-white"
               >
-                <Facebook className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
-              </a>
-              <a
-                href="#"
-                className="p-3 bg-gray-800 hover:bg-blue-500 rounded-lg transition-colors duration-300 group"
-              >
-                <div className="w-6 h-6 group-hover:scale-110 transition-transform duration-300 text-center font-bold">
-                  T
-                </div>
+                <Instagram className="h-4 w-4" />
+                Instagram
               </a>
             </div>
           </div>
         </div>
-        
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-800 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400">
-              © 2025 UrbanSwag. Todos los derechos reservados.
-            </p>
-            <div className="flex gap-6 text-sm">
-              <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors duration-300">
-                Términos y Condiciones
-              </a>
-              <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors duration-300">
-                Política de Privacidad
-              </a>
-            </div>
-          </div>
+
+        <div className="mt-16 flex flex-col gap-3 border-t border-stone-800 pt-8 text-xs text-stone-500 md:flex-row md:items-center md:justify-between">
+          <p>© {new Date().getFullYear()} UrbanSwag. Todos los derechos reservados.</p>
+          <p className="tracking-[0.2em] uppercase">Hecho en Colombia</p>
         </div>
       </div>
     </footer>

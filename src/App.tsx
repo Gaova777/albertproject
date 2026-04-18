@@ -1,15 +1,14 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import LandingPage from './pages/LandingPage';
-import AdminPanel from './pages/AdminPanel';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
+import AdminPanel from "./pages/AdminPanel";
+import { ADMIN_PATH } from "./config";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/admin" element={<AdminPanel />} />
+        <Route path={ADMIN_PATH} element={<AdminPanel />} />
       </Routes>
     </Router>
   );

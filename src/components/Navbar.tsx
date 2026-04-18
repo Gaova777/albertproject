@@ -1,192 +1,107 @@
-import React, { useState, useEffect, useRef } from 'react';
-import icon from '../assets/icon.png';
-import logo from '../assets/logo.svg';
-import { Menu, X, ShoppingBag } from 'lucide-react';
+import React, { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
+import { buildWhatsappLink } from "../utils/whatsapp";
+
+const navItems = [
+  { label: "Colección", target: "collection" },
+  { label: "Historia", target: "about" },
+  { label: "Ubicación", target: "location" },
+];
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  //estado para controlar la visibilidad del navbar al hacer scroll
-  const [isVisible, setIsVisible] = useState(true);
-  // Nuevo estado: ¿Hemos alcanzado la sección de anclaje?
-  const [hasReachedSection, setHasReachedSection] = useState(false);
-  // uso de useRef para almacenar la posición anterior del scroll
-  const lastScrollY = useRef(0);
-  // ----------------------------------------------------
-  // Lógica del Intersection Observer (Anclaje a Sección)
-  // ----------------------------------------------------
+
   useEffect(() => {
-    // Busca el elemento de la sección de anclaje por su ID
-    const targetElement = document.getElementById('collection');
-    if (!targetElement) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // hasReachedSection será TRUE si el elemento está visible, FALSE si no.
-        setHasReachedSection(entry.isIntersecting);
-      },
-      {
-        // El threshold 0 significa que se activa apenas 1 píxel del elemento sea visible.
-        threshold: 0
-      }
-    );
-
-    observer.observe(targetElement);
-
-    // Limpia el observador al desmontar el componente
-    return () => {
-      observer.disconnect();
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      // 1. Lógica para el fondo (isScrolled)
-      setIsScrolled(currentScrollY > 50);
-
-      // 2. Lógica para la visibilidad (Smart Header + Anclaje)
-      let shouldBeVisible = true;
-      const scrollingDown = currentScrollY > lastScrollY.current;
-
-      // REGLA 1: Siempre visible en la parte superior
-      if (currentScrollY < 50) {
-        shouldBeVisible = true;
-      }
-      // REGLA 2: Si ya se alcanzó la sección de anclaje, se fija y se mantiene visible
-      else if (hasReachedSection) {
-        shouldBeVisible = true;
-      }
-      // REGLA 3: Si se baja el scroll (y no se ha anclado), ocultar
-      else if (scrollingDown) {
-        shouldBeVisible = false;
-      }
-      // REGLA 4: Si se sube el scroll (y no se ha anclado), mostrar
-      else {
-        shouldBeVisible = true;
-      }
-
-      setIsVisible(shouldBeVisible);
-
-      // Actualizar posición de scroll anterior
-      lastScrollY.current = currentScrollY;
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    // **Importante:** Añadimos hasReachedSection a las dependencias.
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [hasReachedSection]);
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsOpen(false);
-    }
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setIsOpen(false);
   };
 
-  const navItems = [
-    { label: 'Inicio', action: scrollToTop },
-    { label: 'Hero', action: () => scrollToSection('hero') },
-    { label: 'Nosotros', action: () => scrollToSection('about') },
-    { label: 'Colección', action: () => scrollToSection('collection') },
-    { label: 'Ubicación', action: () => scrollToSection('location') },
-  ];
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setIsOpen(false);
+  };
 
   return (
-
-    <nav className={`flex justify-between items-center w-full h-16 md:h-20 bg-transparent border-b border-white fixed z-50 transition-all duration-300 transform ${isVisible ? 'translate-y-0' : '-translate-y-full'} ${isScrolled ? 'bg-black/10 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/5' : 'bg-transparent border-white/10'}`}>
-      <div className="flex items-center gap-2 cursor-pointer px-4 py-2 hover:opacity-80 transition-opacity duration-300" onClick={scrollToTop}>
-        <img 
-          src={icon} 
-          alt="Logo Icon" 
-          className="h-8 w-8 md:h-10 md:w-10 object-contain"
-        />
-        <img 
-          src={logo} 
-          alt="Brand Logo" 
-          className="h-6 md:h-8 w-auto object-contain max-w-[120px] md:max-w-[150px]"
-        />
-      </div>
-      <div className={'flex items-center gap-4 px-4  '}>
-        {navItems.map((item, index) => (
-          <button key={index}
-            onClick={item.action}
-            className={`font-medium transition-all duration-300 hover:text-gray-300 relative group ${isScrolled ? 'text-white/90 hover:text-white' : 'text-white'}`}>
-            {item.label}
-            <span className='absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full'></span>
-          </button>
-        ))}
-        
-      </div>
-
-      <div className={'flex items-center gap-4 px-4  '}>
-        <button className={`flex  gap-4 p-2 rounded-lg bg-slate-600 transition-colors duration-300 ${isScrolled ? 'text-white hover:bg-white/20' : 'text-white hover:bg-white/20'}`}>
-          Compra Ahora
-          <ShoppingBag className="w-6 h-6" />
+    <header
+      className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${
+        isScrolled
+          ? "bg-white/80 backdrop-blur-md border-b border-stone-200"
+          : "bg-transparent border-b border-transparent"
+      }`}
+    >
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:h-20">
+        <button
+          onClick={scrollTop}
+          className="text-lg font-semibold tracking-[0.2em] text-stone-900 transition-opacity hover:opacity-70"
+        >
+          URBANSWAG
         </button>
 
-      </div>
-    
-   
-      
-      {/* <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item, index) => (
-              <button
-                key={index}
-                onClick={item.action}
-                className={`font-medium transition-all duration-300 hover:text-blue-500 relative group ${
-                  isScrolled ? 'text-white/90 hover:text-white' : 'text-white'
-                }`}
-              >
-                {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
-              </button>
-            ))}
-          </div>
+        <div className="hidden items-center gap-10 md:flex">
+          {navItems.map((item) => (
+            <button
+              key={item.target}
+              onClick={() => scrollTo(item.target)}
+              className="text-xs font-medium uppercase tracking-[0.2em] text-stone-700 transition-colors hover:text-stone-950"
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
 
-      
+        <div className="flex items-center gap-3">
+          <a
+            href={buildWhatsappLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden rounded-full border border-stone-900 bg-stone-900 px-5 py-2 text-xs font-medium uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-white hover:text-stone-900 md:inline-block"
+          >
+            Comprar
+          </a>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`md:hidden p-2 rounded-lg transition-colors duration-300 ${
-              isScrolled
-                ? 'text-white hover:bg-white/20'
-                : 'text-white hover:bg-white/20'
-            }`}
+            className="flex h-10 w-10 items-center justify-center text-stone-900 md:hidden"
+            aria-label="Menú"
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
+      </nav>
 
-      
-        <div
-          className={`md:hidden overflow-hidden transition-all duration-300 ${
-            isOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
-          }`}
-        >
-          <div className="py-4 space-y-2 bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg mt-2 shadow-lg shadow-black/10">
-            {navItems.map((item, index) => (
-              <button
-                key={index}
-                onClick={item.action}
-                className="block w-full text-left px-4 py-3 text-white/90 hover:text-white hover:bg-white/20 transition-colors duration-300 font-medium"
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
+      <div
+        className={`overflow-hidden border-t border-stone-200 bg-white transition-[max-height] duration-500 md:hidden ${
+          isOpen ? "max-h-96" : "max-h-0"
+        }`}
+      >
+        <div className="flex flex-col gap-1 px-6 py-4">
+          {navItems.map((item) => (
+            <button
+              key={item.target}
+              onClick={() => scrollTo(item.target)}
+              className="py-3 text-left text-sm font-medium uppercase tracking-[0.2em] text-stone-700 hover:text-stone-950"
+            >
+              {item.label}
+            </button>
+          ))}
+          <a
+            href={buildWhatsappLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 rounded-full border border-stone-900 bg-stone-900 px-5 py-3 text-center text-xs font-medium uppercase tracking-[0.2em] text-white"
+          >
+            Comprar por WhatsApp
+          </a>
         </div>
-      </div> */}
-    </nav>
+      </div>
+    </header>
   );
 };
 

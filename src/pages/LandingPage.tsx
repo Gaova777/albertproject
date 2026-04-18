@@ -1,20 +1,24 @@
-import React from 'react';
-import Navbar from '../components/Navbar';
-import Hero from '../components/Hero';
-import About from '../components/About';
-import Collection from '../components/Collection';
-import Location from '../components/Location';
-import Footer from '../components/Footer';
+import React from "react";
+import Navbar from "../components/Navbar";
+import Hero from "../components/Hero";
+import Collection from "../components/Collection";
+import About from "../components/About";
+import Location from "../components/Location";
+import Footer from "../components/Footer";
+import WhatsAppButton from "../components/WhatsAppButton";
 
 const LandingPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-white">
-      {/* <Navbar /> */}
-      <Hero />
-      <About />
-      <Collection />
-      <Location />
+    <div className="min-h-screen bg-white text-stone-950 antialiased">
+      <Navbar />
+      <main>
+        <Hero />
+        <Collection />
+        <About />
+        <Location />
+      </main>
       <Footer />
+      <WhatsAppButton />
     </div>
   );
 };

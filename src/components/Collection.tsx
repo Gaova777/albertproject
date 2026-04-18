@@ -1,103 +1,95 @@
-import React, { useState, useEffect } from 'react';
-import { getImageUrls } from '../utils/imageStorage';
+import React from "react";
+import { useProducts } from "../hooks/useProducts";
+import { products as fallback } from "../data/products";
+import { whatsappForProduct } from "../utils/whatsapp";
 
-interface SweatshirtItem {
-  id: number;
-  name: string;
-  price: string;
-  defaultImage: string;
-}
-
-const defaultSweatshirts: SweatshirtItem[] = [
-  {
-    id: 1,
-    name: "Buzo Nocturno",
-    price: "$49.99",
-    defaultImage: "https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=600"
-  },
-  {
-    id: 2,
-    name: "Buzo Classic Hood",
-    price: "$54.99",
-    defaultImage: "https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=600"
-  },
-  {
-    id: 3,
-    name: "Buzo Urban Elite",
-    price: "$59.99",
-    defaultImage: "https://images.pexels.com/photos/1191710/pexels-photo-1191710.jpeg?auto=compress&cs=tinysrgb&w=600"
-  },
-  {
-    id: 4,
-    name: "Buzo Street Vision",
-    price: "$52.99",
-    defaultImage: "https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=600"
-  },
-  {
-    id: 5,
-    name: "Buzo Minimal Code",
-    price: "$47.99",
-    defaultImage: "https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=600"
-  },
-  {
-    id: 6,
-    name: "Buzo Urban Flow",
-    price: "$56.99",
-    defaultImage: "https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=600"
-  }
-];
+const getFallback = (slug: string): string => {
+  return fallback.find((p) => p.slug === slug)?.fallback ?? "";
+};
 
 const Collection: React.FC = () => {
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
-
-  useEffect(() => {
-    const urls = getImageUrls();
-    setImageUrls(urls);
-  }, []);
-
-  const getImageUrl = (index: number): string => {
-    return imageUrls[index] || defaultSweatshirts[index].defaultImage;
-  };
+  const { products, loading } = useProducts();
 
   return (
-    <section id="collection" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Nuestra <span className="text-blue-500">Colección</span>
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Descubre nuestra selección exclusiva de buzos diseñados para la vida urbana moderna.
+    <section id="collection" className="bg-white py-24 md:py-32">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="mb-16 flex flex-col gap-6 border-b border-stone-200 pb-10 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.35em] text-stone-500">
+              Colección FW 2025
+            </p>
+            <h2 className="text-5xl font-light leading-[0.95] tracking-tight text-stone-950 md:text-7xl">
+              Últimos
+              <br />
+              <span className="italic font-serif">drops</span>
+            </h2>
+          </div>
+          <p className="max-w-sm text-sm leading-relaxed text-stone-600">
+            Piezas en edición limitada, pensadas para durar. Cortes oversize,
+            telas pesadas y acabados premium.
           </p>
         </div>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {defaultSweatshirts.map((item, index) => (
-            <div
-              key={item.id}
-              className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden"
-            >
-              <div className="aspect-square overflow-hidden">
-                <img
-                  src={getImageUrl(index)}
-                  alt={item.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                />
+
+        {loading ? (
+          <div className="grid grid-cols-1 gap-x-6 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="animate-pulse">
+                <div className="aspect-[4/5] bg-stone-100" />
+                <div className="mt-5 h-4 w-32 bg-stone-100" />
+                <div className="mt-2 h-3 w-24 bg-stone-100" />
               </div>
-              
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-500 transition-colors duration-300">
-                  {item.name}
-                </h3>
-                <p className="text-2xl font-bold text-blue-500 mb-4">{item.price}</p>
-                
-                <button className="w-full bg-gray-900 hover:bg-blue-500 text-white py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
-                  Ver Detalles
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-x-6 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+            {products.map((product) => {
+              const imageSrc =
+                product.image_url || getFallback(product.slug);
+              return (
+                <article key={product.id} className="group">
+                  <a
+                    href={whatsappForProduct(product.name)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
+                  >
+                    <div className="relative aspect-[4/5] overflow-hidden bg-stone-100">
+                      <img
+                        src={imageSrc}
+                        alt={product.name}
+                        loading="lazy"
+                        onError={(e) => {
+                          const img = e.currentTarget;
+                          const fb = getFallback(product.slug);
+                          if (fb && img.src !== fb) img.src = fb;
+                        }}
+                        className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
+                      />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                      <span className="absolute bottom-4 left-4 rounded-full bg-white/90 px-4 py-1.5 text-[10px] font-medium uppercase tracking-[0.25em] text-stone-900 opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover:opacity-100">
+                        Consultar por WhatsApp
+                      </span>
+                    </div>
+
+                    <div className="mt-5 flex items-start justify-between gap-4">
+                      <div>
+                        <h3 className="text-base font-medium text-stone-950">
+                          {product.name}
+                        </h3>
+                        <p className="mt-1 text-xs uppercase tracking-[0.2em] text-stone-500">
+                          {product.material}
+                        </p>
+                      </div>
+                      <span className="whitespace-nowrap text-sm font-medium text-stone-950">
+                        {product.price}
+                      </span>
+                    </div>
+                  </a>
+                </article>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );
