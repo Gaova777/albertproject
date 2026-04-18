@@ -23,3 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 .env
+.vercel
+
+# Carpetas de referencia/mockups del cliente — nunca subir
+imageIcons/
+screenshots/
